@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Space Odyssey — To The Moon & Beyond</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #000; color: #fff; overflow-x: hidden; }
+    html { scroll-behavior: smooth; }
+    ::-webkit-scrollbar { width: 12px; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #3b82f6, #8b5cf6, #ec4899); border-radius: 6px; }
+    ::-webkit-scrollbar-thumb:hover { background: linear-gradient(to bottom, #60a5fa, #a78bfa, #f472b6); }
+    ::selection { background-color: rgba(139, 92, 246, 0.3); color: #fff; }
+    .animate-float { animation: float 6s ease-in-out infinite; }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+    .animate-scroll { animation: scroll 1.5s ease-in-out infinite; }
+    @keyframes scroll { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
+    .star { position: absolute; background: white; border-radius: 50%; animation: twinkle var(--duration) ease-in-out infinite; animation-delay: var(--delay); }
+    @keyframes twinkle { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.5); } }
+    .card-hover:hover { transform: translateY(-8px) scale(1.02); }
+    .card-hover { transition: all 0.3s ease; }
+    .img-zoom { transition: transform 0.5s ease; }
+    .card-hover:hover .img-zoom { transform: scale(1.1); }
+    .timeline-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, #3b82f6, #8b5cf6, #ec4899); }
+    @media (max-width: 768px) { .timeline-line { display: none; } }
+    .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .btn-hover { transition: all 0.3s ease; }
+    .btn-hover:hover { transform: scale(1.05); }
+    .btn-hover:active { transform: scale(0.95); }
+  </style>
+</head>
+<body>
+
+  <!-- HERO SECTION -->
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+    <!-- Background Image -->
+    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40" style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80')"></div>
+    <!-- Gradient Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black via-black/80 to-black"></div>
+    <!-- Stars -->
+    <div id="stars-container" class="absolute inset-0"></div>
+    <!-- Moon Image -->
+    <div class="animate-float absolute top-20 right-10 md:top-32 md:right-32 w-48 h-48 md:w-80 md:h-80 rounded-full overflow-hidden opacity-90 shadow-2xl shadow-blue-500/20">
+      <img src="https://images.unsplash.com/photo-1522030299830-16b8d3d049fe?w=600&q=80" alt="Moon" class="w-full h-full object-cover">
+    </div>
+    <!-- Content -->
+    <div class="relative z-10 text-center px-4 max-w-5xl mx-auto">
+      <div class="fade-in">
+        <span class="inline-flex items-center gap-2 px-4 py-2 mb-6 text-sm font-medium text-blue-300 bg-blue-500/10 rounded-full border border-blue-500/20 backdrop-blur-sm">
+          <img src="https://images.unsplash.com/photo-1516849841032-87cbac4d88f7?w=100&q=80" alt="Astronaut" class="w-5 h-5 rounded-full object-cover">
+          The Greatest Journey in Human History
+        </span>
+        <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight">
+          To The <span class="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Moon</span> & Beyond
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
+          From the first steps on Earth to landing on the Moon. Discover the incredible story of NASA, the astronauts, and humanity's quest to explore the cosmos.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <button class="btn-hover px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-blue-500/25 transition-shadow">
+            Explore The Mission
+          </button>
+          <button class="btn-hover px-8 py-4 bg-white/10 text-white font-semibold rounded-lg border border-white/20 hover:bg-white/20 transition-colors backdrop-blur-sm">
+            Watch History
+          </button>
+        </div>
+      </div>
+      <!-- Scroll Indicator -->
+      <div class="animate-scroll absolute bottom-8 left-1/2 transform -translate-x-1/2">
+        <div class="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+          <div class="w-1 h-3 bg-white/50 rounded-full mt-2"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES / JOURNEY SECTION -->
+  <section class="py-24 bg-black">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 fade-in">
+        <span class="text-blue-400 font-semibold text-sm uppercase tracking-wider">The Journey</span>
+        <h2 class="text-4xl md:text-5xl font-bold text-white mt-3 mb-6">
+          From <span class="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Earth</span> to the <span class="bg-gradient-to-r from-gray-300 to-gray-500 bg-clip-text text-transparent">Moon</span>
+        </h2>
+        <p class="text-gray-400 text-lg max-w-2xl mx-auto">The greatest adventure in human history—from our first steps into space to walking on another world</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Card 1 -->
+        <div class="card-hover group relative rounded-2xl overflow-hidden bg-gray-900/50 border border-gray-800 hover:border-gray-600 fade-in">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?w=600&q=80" alt="Earth" class="w-full h-full object-cover img-zoom">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+          </div>
+          <div class="relative p-6 -mt-12">
+            <h3 class="text-xl font-semibold text-white mb-3">Life on Earth</h3>
+            <p class="text-gray-400 leading-relaxed">Our pale blue dot—the only home we've ever known. A world teeming with life, where the story of humanity begins.</p>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="card-hover group relative rounded-2xl overflow-hidden bg-gray-900/50 border border-gray-800 hover:border-gray-600 fade-in">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=600&q=80" alt="Rocket Launch" class="w-full h-full object-cover img-zoom">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+          </div>
+          <div class="relative p-6 -mt-12">
+            <h3 class="text-xl font-semibold text-white mb-3">The Space Race</h3>
+            <p class="text-gray-400 leading-relaxed">In 1957, Sputnik changed everything. The race to space ignited innovation and pushed humanity beyond the atmosphere.</p>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="card-hover group relative rounded-2xl overflow-hidden bg-gray-900/50 border border-gray-800 hover:border-gray-600 fade-in">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=600&q=80" alt="Astronaut" class="w-full h-full object-cover img-zoom">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+          </div>
+          <div class="relative p-6 -mt-12">
+            <h3 class="text-xl font-semibold text-white mb-3">First Humans in Space</h3>
+            <p class="text-gray-400 leading-relaxed">Yuri Gagarin became the first human to orbit Earth in 1961, proving that space travel was possible.</p>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="card-hover group relative rounded-2xl overflow-hidden bg-gray-900/50 border border-gray-800 hover:border-gray-600 fade-in">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1531306728370-e2ebd9d7bb99?w=600&q=80" alt="Moon Landing" class="w-full h-full object-cover img-zoom">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+          </div>
+          <div class="relative p-6 -mt-12">
+            <h3 class="text-xl font-semibold text-white mb-3">Apollo 11 Moon Landing</h3>
+            <p class="text-gray-400 leading-relaxed">July 20, 1969. Neil Armstrong and Buzz Aldrin walked on the Moon. "One small step for man, one giant leap for mankind."</p>
+          </div>
+        </div>
+        <!-- Card 5 -->
+        <div class="card-hover group relative rounded-2xl overflow-hidden bg-gray-900/50 border border-gray-800 hover:border-gray-600 fade-in">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1454789548928-9efd52dc4031?w=600&q=80" alt="NASA" class="w-full h-full object-cover img-zoom">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+          </div>
+          <div class="relative p-6 -mt-12">
+            <h3 class="text-xl font-semibold text-white mb-3">NASA's Legacy</h3>
+            <p class="text-gray-400 leading-relaxed">Over 60 years of exploration: Hubble Telescope, Mars rovers, International Space Station, and the James Webb Space Telescope.</p>
+          </div>
+        </div>
+        <!-- Card 6 -->
+        <div class="card-hover group relative rounded-2xl overflow-hidden bg-gray-900/50 border border-gray-800 hover:border-gray-600 fade-in">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=600&q=80" alt="Mars" class="w-full h-full object-cover img-zoom">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+          </div>
+          <div class="relative p-6 -mt-12">
+            <h3 class="text-xl font-semibold text-white mb-3">The Future: Mars & Beyond</h3>
+            <p class="text-gray-400 leading-relaxed">Artemis program aims to return humans to the Moon. Mars colonization is next. The cosmos await.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE / MISSIONS SECTION -->
+  <section class="py-24 bg-gradient-to-b from-black via-gray-900 to-black">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 fade-in">
+        <span class="text-purple-400 font-semibold text-sm uppercase tracking-wider">Historic Missions</span>
+        <h2 class="text-4xl md:text-5xl font-bold text-white mt-3 mb-6">
+          Milestones of <span class="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Space Exploration</span>
+        </h2>
+        <p class="text-gray-400 text-lg max-w-2xl mx-auto">Six decades of pushing the boundaries of what's possible</p>
+      </div>
+      <div class="relative">
+        <div class="timeline-line"></div>
+        <!-- Mission 1 -->
+        <div class="flex flex-col md:flex-row items-center mb-12 fade-in">
+          <div class="flex-1 md:text-right md:px-12 mb-4 md:mb-0">
+            <div class="card-hover inline-block rounded-2xl overflow-hidden bg-gray-900/80 border border-gray-700 hover:border-gray-500">
+              <div class="relative h-48 w-full md:w-80">
+                <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=600&q=80" alt="Sputnik" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
+                <div class="absolute bottom-4 left-4 right-4">
+                  <span class="text-sm font-bold text-blue-400 bg-black/50 px-2 py-1 rounded">1957</span>
+                </div>
+              </div>
+              <div class="p-6">
+                <h3 class="text-2xl font-bold text-white mb-3">Sputnik 1</h3>
+                <p class="text-gray-400">The first artificial satellite launched by the Soviet Union, igniting the Space Race.</p>
+              </div>
+            </div>
+          </div>
+          <div class="hidden md:flex w-16 h-16 rounded-full overflow-hidden border-4 border-blue-500 z-10 shadow-lg shadow-blue-500/50">
+            <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=100&q=80" class="w-full h-full object-cover">
+          </div>
+          <div class="flex-1"></div>
+        </div>
+        <!-- Mission 2 -->
+        <div class="flex flex-col md:flex-row-reverse items-center mb-12 fade-in">
+          <div class="flex-1 md:text-left md:px-12 mb-4 md:mb-0">
+            <div class="card-hover inline-block rounded-2xl overflow-hidden bg-gray-900/80 border border-gray-700 hover:border-gray-500">
+              <div class="relative h-48 w-full md:w-80">
+                <img src="https://images.unsplash.com/photo-1517976487492-5750f3195933?w=600&q=80" alt="Vostok" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
+                <div class="absolute bottom-4 left-4 right-4">
+                  <span class="text-sm font-bold text-blue-400 bg-black/50 px-2 py-1 rounded">1961</span>
+                </div>
+              </div>
+              <div class="p-6">
+                <h3 class="text-2xl font-bold text-white mb-3">Vostok 1</h3>
+                <p class="text-gray-400">Yuri Gagarin becomes the first human to orbit Earth—a 108-minute flight that changed history.</p>
+              </div>
+            </div>
+          </div>
+          <div class="hidden md:flex w-16 h-16 rounded-full overflow-hidden border-4 border-purple-500 z-10 shadow-lg shadow-purple-500/50">
+            <img src="https://images.unsplash.com/photo-1517976487492-5750f3195933?w=100&q=80" class="w-full h-full object-cover">
+          </div>
+          <div class="flex-1"></div>
+        </div>
+        <!-- Mission 3 -->
+        <div class="flex flex-col md:flex-row items-center mb-12 fade-in">
+          <div class="flex-1 md:text-right md:px-12 mb-4 md:mb-0">
+            <div class="card-hover inline-block rounded-2xl overflow-hidden bg-gray-900/80 border border-gray-700 hover:border-gray-500">
+              <div class="relative h-48 w-full md:w-80">
+                <img src="https://images.unsplash.com/photo-1531306728370-e2ebd9d7bb99?w=600&q=80" alt="Apollo 11" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
+                <div class="absolute bottom-4 left-4 right-4">
+                  <span class="text-sm font-bold text-gray-300 bg-black/50 px-2 py-1 rounded">1969</span>
+                </div>
+              </div>
+              <div class="p-6">
+                <h3 class="text-2xl font-bold text-white mb-3">Apollo 11</h3>
+                <p class="text-gray-400">Neil Armstrong & Buzz Aldrin walk on the Moon. 600 million people watch live on TV.</p>
+              </div>
+            </div>
+          </div>
+          <div class="hidden md:flex w-16 h-16 rounded-full overflow-hidden border-4 border-gray-400 z-10 shadow-lg shadow-gray-400/50">
+            <img src="https://images.unsplash.com/photo-1531306728370-e2ebd9d7bb99?w=100&q=80" class="w-full h-full object-cover">
+          </div>
+          <div class="flex-1"></div>
+        </div>
+        <!-- Mission 4 -->
+        <div class="flex flex-col md:flex-row-reverse items-center mb-12 fade-in">
+          <div class="flex-1 md:text-left md:px-12 mb-4 md:mb-0">
+            <div class="card-hover inline-block rounded-2xl overflow-hidden bg-gray-900/80 border border-gray-700 hover:border-gray-500">
+              <div class="relative h-48 w-full md:w-80">
+                <img src="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?w=600&q=80" alt="Hubble" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
+                <div class="absolute bottom-4 left-4 right-4">
+                  <span class="text-sm font-bold text-purple-400 bg-black/50 px-2 py-1 rounded">1990</span>
+                </div>
+              </div>
+              <div class="p-6">
+                <h3 class="text-2xl font-bold text-white mb-3">Hubble Telescope</h3>
+                <p class="text-gray-400">Launched into orbit, Hubble revealed the universe in ways never seen before.</p>
+              </div>
+            </div>
+          </div>
+          <div class="hidden md:flex w-16 h-16 rounded-full overflow-hidden border-4 border-purple-500 z-10 shadow-lg shadow-purple-500/50">
+            <img src="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?w=100&q=80" class="w-full h-full object-cover">
+          </div>
+          <div class="flex-1"></div>
+        </div>
+        <!-- Mission 5 -->
+        <div class="flex flex-col md:flex-row items-center mb-12 fade-in">
+          <div class="flex-1 md:text-right md:px-12 mb-4 md:mb-0">
+            <div class="card-hover inline-block rounded-2xl overflow-hidden bg-gray-900/80 border border-gray-700 hover:border-gray-500">
+              <div class="relative h-48 w-full md:w-80">
+                <img src="https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=600&q=80" alt="Mars Rover" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
+                <div class="absolute bottom-4 left-4 right-4">
+                  <span class="text-sm font-bold text-orange-400 bg-black/50 px-2 py-1 rounded">2012</span>
+                </div>
+              </div>
+              <div class="p-6">
+                <h3 class="text-2xl font-bold text-white mb-3">Mars Rover</h3>
+                <p class="text-gray-400">Curiosity lands on Mars, beginning years of exploration on the Red Planet.</p>
+              </div>
+            </div>
+          </div>
+          <div class="hidden md:flex w-16 h-16 rounded-full overflow-hidden border-4 border-orange-500 z-10 shadow-lg shadow-orange-500/50">
+            <img src="https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=100&q=80" class="w-full h-full object-cover">
+          </div>
+          <div class="flex-1"></div>
+        </div>
+        <!-- Mission 6 -->
+        <div class="flex flex-col md:flex-row-reverse items-center mb-12 fade-in">
+          <div class="flex-1 md:text-left md:px-12 mb-4 md:mb-0">
+            <div class="card-hover inline-block rounded-2xl overflow-hidden bg-gray-900/80 border border-gray-700 hover:border-gray-500">
+              <div class="relative h-48 w-full md:w-80">
+                <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=600&q=80" alt="James Webb" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
+                <div class="absolute bottom-4 left-4 right-4">
+                  <span class="text-sm font-bold text-yellow-400 bg-black/50 px-2 py-1 rounded">2021</span>
+                </div>
+              </div>
+              <div class="p-6">
+                <h3 class="text-2xl font-bold text-white mb-3">James Webb</h3>
+                <p class="text-gray-400">The most powerful space telescope ever built, peering into the dawn of time.</p>
+              </div>
+            </div>
+          </div>
+          <div class="hidden md:flex w-16 h-16 rounded-full overflow-hidden border-4 border-yellow-500 z-10 shadow-lg shadow-yellow-500/50">
+            <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=100&q=80" class="w-full h-full object-cover">
+          </div>
+          <div class="flex-1"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTES SECTION -->
+  <section class="py-24 bg-black relative overflow-hidden">
+    <!-- Stars -->
+    <div id="quotes-stars" class="absolute inset-0"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center mb-16 fade-in">
+        <span class="text-purple-400 font-semibold text-sm uppercase tracking-wider">Words That Inspired</span>
+        <h2 class="text-4xl md:text-5xl font-bold text-white mt-3 mb-6">
+          Voices from the <span class="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Cosmos</span>
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Quote 1 -->
+        <div class="card-hover group rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900/80 to-gray-800/80 border border-gray-700 hover:border-purple-500/50 fade-in">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1531306728370-e2ebd9d7bb99?w=600&q=80" alt="Moon" class="w-full h-full object-cover img-zoom">
+            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent"></div>
+          </div>
+          <div class="relative p-6 -mt-12">
+            <svg class="w-10 h-10 text-purple-400 mb-4 opacity-70" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+            <p class="text-lg md:text-xl text-gray-200 mb-6 leading-relaxed italic">"That's one small step for man, one giant leap for mankind."</p>
+            <p class="text-white font-semibold">Neil Armstrong</p>
+            <p class="text-gray-400 text-sm">Apollo 11 Commander • 1969</p>
+          </div>
+        </div>
+        <!-- Quote 2 -->
+        <div class="card-hover group rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900/80 to-gray-800/80 border border-gray-700 hover:border-purple-500/50 fade-in">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=600&q=80" alt="Space" class="w-full h-full object-cover img-zoom">
+            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent"></div>
+          </div>
+          <div class="relative p-6 -mt-12">
+            <svg class="w-10 h-10 text-purple-400 mb-4 opacity-70" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+            <p class="text-lg md:text-xl text-gray-200 mb-6 leading-relaxed italic">"The Earth is the cradle of humanity, but mankind cannot stay in the cradle forever."</p>
+            <p class="text-white font-semibold">Konstantin Tsiolkovsky</p>
+            <p class="text-gray-400 text-sm">Rocket Scientist • 1911</p>
+          </div>
+        </div>
+        <!-- Quote 3 -->
+        <div class="card-hover group rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900/80 to-gray-800/80 border border-gray-700 hover:border-purple-500/50 fade-in">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=600&q=80" alt="Nebula" class="w-full h-full object-cover img-zoom">
+            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent"></div>
+          </div>
+          <div class="relative p-6 -mt-12">
+            <svg class="w-10 h-10 text-purple-400 mb-4 opacity-70" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+            <p class="text-lg md:text-xl text-gray-200 mb-6 leading-relaxed italic">"Somewhere, something incredible is waiting to be known."</p>
+            <p class="text-white font-semibold">Carl Sagan</p>
+            <p class="text-gray-400 text-sm">Astronomer & Author • 1980</p>
+          </div>
+        </div>
+        <!-- Quote 4 -->
+        <div class="card-hover group rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900/80 to-gray-800/80 border border-gray-700 hover:border-purple-500/50 fade-in">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1522030299830-16b8d3d049fe?w=600&q=80" alt="Moon Surface" class="w-full h-full object-cover img-zoom">
+            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent"></div>
+          </div>
+          <div class="relative p-6 -mt-12">
+            <svg class="w-10 h-10 text-purple-400 mb-4 opacity-70" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+            <p class="text-lg md:text-xl text-gray-200 mb-6 leading-relaxed italic">"We choose to go to the Moon in this decade and do the other things, not because they are easy, but because they are hard."</p>
+            <p class="text-white font-semibold">John F. Kennedy</p>
+            <p class="text-gray-400 text-sm">35th U.S. President • 1962</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-black border-t border-gray-800 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
+        <div class="col-span-2 md:col-span-1">
+          <div class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">Space Odyssey</div>
+          <div class="relative w-full h-32 mt-4 rounded-lg overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&q=80" alt="Earth from Space" class="w-full h-full object-cover opacity-60">
+          </div>
+          <p class="text-gray-400 text-sm mt-4">Exploring the cosmos, one mission at a time.</p>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold mb-4">Explore</h4>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Missions</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Astronauts</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Galaxies</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Technology</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold mb-4">NASA</h4>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Artemis Program</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Mars Rover</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">James Webb</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">ISS</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold mb-4">Learn</h4>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Space Facts</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Timeline</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Photo Gallery</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Videos</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold mb-4">Connect</h4>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Newsletter</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Community</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Events</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- Banner Image -->
+      <div class="relative h-48 rounded-xl overflow-hidden mb-8">
+        <img src="https://images.unsplash.com/photo-1454789548928-9efd52dc4031?w=1200&q=80" alt="NASA Astronaut" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
+        <div class="absolute bottom-6 left-6 right-6 text-center">
+          <p class="text-white text-lg font-semibold">"The Earth is the cradle of humanity, but mankind cannot stay in the cradle forever."</p>
+        </div>
+      </div>
+      <!-- Bottom -->
+      <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-400 text-sm">© 2026 Space Odyssey. Inspired by NASA's missions & the brave astronauts.</p>
+        <div class="flex gap-4 mt-4 md:mt-0">
+          <a href="#" class="text-gray-400 hover:text-white transition-colors">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Generate Stars
+    function createStars(containerId, count) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        const size = Math.random() * 2 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+        star.style.setProperty('--delay', (Math.random() * 2) + 's');
+        container.appendChild(star);
+      }
+    }
+    createStars('stars-container', 150);
+    createStars('quotes-stars', 100);
+
+    // Scroll Animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
