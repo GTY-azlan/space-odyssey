@@ -4,46 +4,40 @@ import { motion } from "framer-motion";
 
 const features = [
   {
-    icon: "🌍",
+    image: "https://images.unsplash.com/photo-1614732414444-096e5f1122d5?w=600&q=80",
     title: "Life on Earth",
     description:
       "Our pale blue dot—the only home we've ever known. A world teeming with life, where the story of humanity begins.",
-    gradient: "from-blue-500 to-green-500",
   },
   {
-    icon: "🚀",
+    image: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=600&q=80",
     title: "The Space Race",
     description:
       "In 1957, Sputnik changed everything. The race to space ignited innovation and pushed humanity beyond the atmosphere.",
-    gradient: "from-orange-500 to-red-500",
   },
   {
-    icon: "👨‍🚀",
+    image: "https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?w=600&q=80",
     title: "First Humans in Space",
     description:
       "Yuri Gagarin became the first human to orbit Earth in 1961, proving that space travel was possible.",
-    gradient: "from-purple-500 to-pink-500",
   },
   {
-    icon: "🌙",
+    image: "https://images.unsplash.com/photo-1531306728370-e2ebd9d7bb99?w=600&q=80",
     title: "Apollo 11 Moon Landing",
     description:
       "July 20, 1969. Neil Armstrong and Buzz Aldrin walked on the Moon. 'One small step for man, one giant leap for mankind.'",
-    gradient: "from-gray-400 to-gray-600",
   },
   {
-    icon: "🛰️",
+    image: "https://images.unsplash.com/photo-1454789548928-9efd52dc4031?w=600&q=80",
     title: "NASA's Legacy",
     description:
       "Over 60 years of exploration: Hubble Telescope, Mars rovers, International Space Station, and the James Webb Space Telescope.",
-    gradient: "from-indigo-500 to-purple-500",
   },
   {
-    icon: "🔭",
+    image: "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=600&q=80",
     title: "The Future: Mars & Beyond",
     description:
       "Artemis program aims to return humans to the Moon. Mars colonization is next. The cosmos await.",
-    gradient: "from-red-500 to-orange-500",
   },
 ];
 
@@ -106,22 +100,27 @@ export default function Features() {
               key={index}
               variants={item}
               whileHover={{ y: -8, scale: 1.02 }}
-              className="group relative p-8 rounded-2xl bg-gray-900/50 border border-gray-800 hover:border-gray-600 transition-colors"
+              className="group relative rounded-2xl overflow-hidden bg-gray-900/50 border border-gray-800 hover:border-gray-600 transition-colors"
             >
-              <div
-                className={`w-14 h-14 rounded-xl bg-gradient-to-r ${feature.gradient} flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform`}
-              >
-                {feature.icon}
+              {/* Image */}
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={feature.image}
+                  alt={feature.title}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
               </div>
-              <h3 className="text-xl font-semibold text-white mb-3">
-                {feature.title}
-              </h3>
-              <p className="text-gray-400 leading-relaxed">
-                {feature.description}
-              </p>
-              <div
-                className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${feature.gradient} opacity-0 group-hover:opacity-5 transition-opacity`}
-              />
+
+              {/* Content */}
+              <div className="relative p-6 -mt-12">
+                <h3 className="text-xl font-semibold text-white mb-3">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-400 leading-relaxed">
+                  {feature.description}
+                </p>
+              </div>
             </motion.div>
           ))}
         </motion.div>

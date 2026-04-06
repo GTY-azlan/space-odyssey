@@ -13,6 +13,7 @@ export default function Footer() {
   return (
     <footer className="bg-black border-t border-gray-800 py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Footer Top */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
@@ -20,11 +21,20 @@ export default function Footer() {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4"
+              className="mb-4"
             >
-              🌙 Space Odyssey
+              <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                Space Odyssey
+              </div>
+              <div className="relative w-full h-32 mt-4 rounded-lg overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&q=80"
+                  alt="Earth from Space"
+                  className="w-full h-full object-cover opacity-60"
+                />
+              </div>
             </motion.div>
-            <p className="text-gray-400 text-sm">
+            <p className="text-gray-400 text-sm mt-4">
               Exploring the cosmos, one mission at a time.
             </p>
           </div>
@@ -55,6 +65,22 @@ export default function Footer() {
           ))}
         </div>
 
+        {/* Footer Image Banner */}
+        <div className="relative h-48 rounded-xl overflow-hidden mb-8">
+          <img
+            src="https://images.unsplash.com/photo-1454789548928-9efd52dc4031?w=1200&q=80"
+            alt="NASA Astronaut"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
+          <div className="absolute bottom-6 left-6 right-6 text-center">
+            <p className="text-white text-lg font-semibold">
+              "The Earth is the cradle of humanity, but mankind cannot stay in
+              the cradle forever."
+            </p>
+          </div>
+        </div>
+
         {/* Bottom */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -63,7 +89,8 @@ export default function Footer() {
           className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center"
         >
           <p className="text-gray-400 text-sm">
-            © 2026 Space Odyssey. Inspired by NASA's missions & the brave astronauts.
+            © 2026 Space Odyssey. Inspired by NASA's missions & the brave
+            astronauts.
           </p>
           <div className="flex gap-4 mt-4 md:mt-0">
             <a

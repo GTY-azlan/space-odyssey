@@ -5,83 +5,60 @@ import { motion } from "framer-motion";
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+      {/* Background Image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80')",
+        }}
+      />
+
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-black/80 to-black" />
+
       {/* Stars Background */}
       <div className="absolute inset-0">
-        {[...Array(100)].map((_, i) => (
+        {[...Array(150)].map((_, i) => (
           <motion.div
             key={i}
             animate={{
               opacity: [0.3, 1, 0.3],
-              scale: [1, 1.2, 1],
+              scale: [1, 1.5, 1],
             }}
             transition={{
               duration: Math.random() * 3 + 2,
               repeat: Infinity,
               ease: "easeInOut",
+              delay: Math.random() * 2,
             }}
             className="absolute w-1 h-1 bg-white rounded-full"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 2}s`,
             }}
           />
         ))}
       </div>
 
-      {/* Moon Element */}
+      {/* Moon Image */}
       <motion.div
         animate={{
-          y: [0, -20, 0],
-          rotate: [0, 5, 0],
+          y: [0, -15, 0],
         }}
         transition={{
-          duration: 8,
+          duration: 6,
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute top-20 right-20 md:top-40 md:right-40 w-32 h-32 md:w-64 md:h-64 rounded-full bg-gradient-to-br from-gray-200 via-gray-300 to-gray-400 opacity-80 blur-sm"
-      />
-      <motion.div
-        animate={{
-          y: [0, -20, 0],
-          rotate: [0, 5, 0],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="absolute top-20 right-20 md:top-40 md:right-40 w-32 h-32 md:w-64 md:h-64 rounded-full bg-gradient-to-br from-yellow-100 via-gray-200 to-gray-300"
-      />
-
-      {/* Nebula Effects */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 90, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-          className="absolute -top-40 -left-40 w-80 h-80 bg-purple-600 rounded-full mix-blend-screen filter blur-3xl opacity-10"
+        className="absolute top-20 right-10 md:top-32 md:right-32 w-48 h-48 md:w-80 md:h-80 rounded-full overflow-hidden opacity-90 shadow-2xl shadow-blue-500/20"
+      >
+        <img
+          src="https://images.unsplash.com/photo-1522030299830-16b8d3d049fe?w=600&q=80"
+          alt="Moon"
+          className="w-full h-full object-cover"
         />
-        <motion.div
-          animate={{
-            scale: [1, 1.3, 1],
-            rotate: [0, -90, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-          className="absolute -bottom-40 -right-40 w-96 h-96 bg-blue-600 rounded-full mix-blend-screen filter blur-3xl opacity-10"
-        />
-      </div>
+      </motion.div>
 
       {/* Hero Content */}
       <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
@@ -94,9 +71,14 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="inline-block px-4 py-2 mb-6 text-sm font-medium text-blue-300 bg-blue-500/10 rounded-full border border-blue-500/20"
+            className="inline-flex items-center gap-2 px-4 py-2 mb-6 text-sm font-medium text-blue-300 bg-blue-500/10 rounded-full border border-blue-500/20 backdrop-blur-sm"
           >
-            🚀 The Greatest Journey in Human History
+            <img
+              src="https://images.unsplash.com/photo-1516849841032-87cbac4d88f7?w=100&q=80"
+              alt="Astronaut"
+              className="w-5 h-5 rounded-full object-cover"
+            />
+            The Greatest Journey in Human History
           </motion.span>
 
           <motion.h1
