@@ -121,13 +121,19 @@ export default function Hero() {
                 🚀 Explore Dashboard
               </motion.button>
             </Link>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-white/10 text-white font-semibold rounded-lg border border-white/20 hover:bg-white/20 transition-colors backdrop-blur-sm"
+            <a
+              href="https://www.youtube.com/watch?v=21X5lGlDOfg"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              Watch History
-            </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-4 bg-white/10 text-white font-semibold rounded-lg border border-white/20 hover:bg-white/20 transition-colors backdrop-blur-sm flex items-center gap-2"
+              >
+                ▶ Watch History
+              </motion.button>
+            </a>
           </motion.div>
         </motion.div>
 
