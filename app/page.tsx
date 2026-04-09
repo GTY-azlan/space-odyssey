@@ -1,8 +1,9 @@
 import Hero from "@/components/Hero";
 import Features from "@/components/Features";
+import ArtemisII from "@/components/ArtemisII";
+import LiveDashboard from "@/components/LiveDashboard";
 import Pricing from "@/components/Pricing";
 import Quotes from "@/components/Quotes";
-import LiveDashboard from "@/components/LiveDashboard";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -10,6 +11,7 @@ export default function Home() {
     <main className="min-h-screen">
       <Hero />
       <Features />
+      <ArtemisII />
       <LiveDashboard />
       <Pricing />
       <Quotes />
