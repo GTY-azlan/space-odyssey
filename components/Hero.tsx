@@ -1,8 +1,33 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
+interface Star {
+  id: number;
+  left: number;
+  top: number;
+  duration: number;
+  delay: number;
+}
+
+function generateStars(count: number): Star[] {
+  return Array.from({ length: count }, (_, i) => ({
+    id: i,
+    left: Math.random() * 100,
+    top: Math.random() * 100,
+    duration: Math.random() * 3 + 2,
+    delay: Math.random() * 2,
+  }));
+}
+
 export default function Hero() {
+  const [stars, setStars] = useState<Star[]>([]);
+
+  useEffect(() => {
+    setStars(generateStars(150));
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
       {/* Background Image */}
@@ -19,23 +44,23 @@ export default function Hero() {
 
       {/* Stars Background */}
       <div className="absolute inset-0">
-        {[...Array(150)].map((_, i) => (
+        {stars.map((star) => (
           <motion.div
-            key={i}
+            key={star.id}
             animate={{
               opacity: [0.3, 1, 0.3],
               scale: [1, 1.5, 1],
             }}
             transition={{
-              duration: Math.random() * 3 + 2,
+              duration: star.duration,
               repeat: Infinity,
               ease: "easeInOut",
-              delay: Math.random() * 2,
+              delay: star.delay,
             }}
             className="absolute w-1 h-1 bg-white rounded-full"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: `${star.left}%`,
+              top: `${star.top}%`,
             }}
           />
         ))}

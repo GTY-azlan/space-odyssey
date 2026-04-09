@@ -1,6 +1,25 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+
+interface Star {
+  id: number;
+  left: number;
+  top: number;
+  duration: number;
+  delay: number;
+}
+
+function generateStars(count: number): Star[] {
+  return Array.from({ length: count }, (_, i) => ({
+    id: i,
+    left: Math.random() * 100,
+    top: Math.random() * 100,
+    duration: Math.random() * 4 + 2,
+    delay: Math.random() * 2,
+  }));
+}
 
 const quotes = [
   {
@@ -34,25 +53,32 @@ const quotes = [
 ];
 
 export default function Quotes() {
+  const [stars, setStars] = useState<Star[]>([]);
+
+  useEffect(() => {
+    setStars(generateStars(100));
+  }, []);
+
   return (
     <section className="py-24 bg-black relative overflow-hidden">
       {/* Background Stars */}
       <div className="absolute inset-0">
-        {[...Array(100)].map((_, i) => (
+        {stars.map((star) => (
           <motion.div
-            key={i}
+            key={star.id}
             animate={{
               opacity: [0.2, 0.8, 0.2],
             }}
             transition={{
-              duration: Math.random() * 4 + 2,
+              duration: star.duration,
               repeat: Infinity,
               ease: "easeInOut",
+              delay: star.delay,
             }}
             className="absolute w-0.5 h-0.5 bg-white rounded-full"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: `${star.left}%`,
+              top: `${star.top}%`,
             }}
           />
         ))}
